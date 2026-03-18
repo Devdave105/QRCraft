@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -82,9 +82,7 @@
 
         <div class="hero-visual">
           <div class="hero-qr-mockup">
-            <div id="heroQR" style="width:160px;height:160px;margin:0 auto 14px;background:var(--surf);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--tx3);font-weight:600">
-              QR Preview
-            </div>
+            <div id="heroQR" style="width:180px;height:180px;margin:0 auto 16px;border-radius:10px;overflow:hidden;background:var(--surf)"></div>
             <div class="hero-qr-caption">Scan to visit QRCraft</div>
             <div class="hero-qr-url">qrcraft.app</div>
           </div>
@@ -290,10 +288,10 @@
         <div>
           <div class="footer-col-title">Learn</div>
           <div class="footer-links">
-            <a href="qrcode.html#how-it-works">How to generate a business QR code</a>
-            <a href="qrcode.html#how-it-works">Tips for sharing QR codes online</a>
-            <a href="qrcode.html#features">How to customize QR colors</a>
-            <a href="qrcode.html#features">Best practices for QR code design</a>
+            <a href="#" onclick="showComingSoon(event)">How to generate a business QR code</a>
+            <a href="#" onclick="showComingSoon(event)">Tips for sharing QR codes online</a>
+            <a href="#" onclick="showComingSoon(event)">How to customize QR colors</a>
+            <a href="#" onclick="showComingSoon(event)">Best practices for QR code design</a>
           </div>
         </div>
         <div>
@@ -308,29 +306,41 @@
         <div>
           <div class="footer-col-title">Support</div>
           <div class="footer-links">
-            <a href="mailto:support@qrcraft.app">Contact Support</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Sitemap</a>
+            <a href="#" onclick="showComingSoon(event)">Contact Support</a>
+            <a href="#" onclick="showComingSoon(event)">Privacy Policy</a>
+            <a href="#" onclick="showComingSoon(event)">Terms of Service</a>
+            <a href="#" onclick="showComingSoon(event)">Sitemap</a>
           </div>
         </div>
       </div>
 
-      <!-- Ad Slot -->
-      <div class="ad-slot">
-        Advertisement — Google AdSense placement (728x90 or responsive)
-      </div>
+      <!-- Ad Slot: paste your Google AdSense script tag here -->
+      <div class="ad-slot" style="display:none"></div>
 
       <div class="footer-bottom">
         <span>&copy; 2026 QRCraft. All rights reserved.</span>
         <div class="footer-bottom-links">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Sitemap</a>
+          <a href="#" onclick="showComingSoon(event)">Privacy</a>
+          <a href="#" onclick="showComingSoon(event)">Terms</a>
+          <a href="#" onclick="showComingSoon(event)">Sitemap</a>
         </div>
       </div>
     </div>
   </footer>
+
+
+  <!-- COMING SOON MODAL -->
+  <div id="comingSoonOverlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px">
+    <div style="background:var(--bg2);border:1.5px solid var(--bdr);border-radius:20px;padding:40px 36px;max-width:380px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.5);animation:csIn .25s ease">
+      <div style="width:56px;height:56px;border-radius:14px;background:var(--brand-light);border:1.5px solid var(--brand-border);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:.75rem;font-weight:800;color:var(--brand);letter-spacing:.04em">SOON</div>
+      <h3 style="font-size:1.3rem;font-weight:800;letter-spacing:-.03em;margin-bottom:10px">Coming Soon</h3>
+      <p style="color:var(--tx2);font-size:.9rem;line-height:1.65;margin-bottom:24px">This page is currently under development and will be available shortly. Thank you for your patience.</p>
+      <button onclick="closeComingSoon()" style="width:100%;padding:12px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;font-size:.92rem;font-weight:600;border:none;cursor:pointer;font-family:inherit">Close</button>
+    </div>
+  </div>
+  <style>
+    @keyframes csIn { from{opacity:0;transform:scale(.94)} to{opacity:1;transform:none} }
+  </style>
 
   <!-- BACK TO TOP -->
   <button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&#8593;</button>
@@ -338,38 +348,82 @@
   <!-- TOAST -->
   <div class="toast-region" id="toastRegion"></div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
-    // Theme
-    const saved = localStorage.getItem('qrc_theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', saved);
-    document.getElementById('themeToggle').textContent = saved === 'dark' ? 'Light Mode' : 'Dark Mode';
+    // ── Theme ──
+    (function() {
+      var t = localStorage.getItem('qrc_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+      var btn = document.getElementById('themeToggle');
+      if (btn) btn.textContent = t === 'dark' ? 'Light Mode' : 'Dark Mode';
+    })();
     document.getElementById('themeToggle').addEventListener('click', function() {
-      const cur = document.documentElement.getAttribute('data-theme');
-      const next = cur === 'dark' ? 'light' : 'dark';
+      var cur  = document.documentElement.getAttribute('data-theme');
+      var next = cur === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('qrc_theme', next);
       this.textContent = next === 'dark' ? 'Light Mode' : 'Dark Mode';
     });
-    // Hamburger
+
+    // ── Hamburger ──
     document.getElementById('hamburger').addEventListener('click', function() {
-      const nav = document.getElementById('mobileNav');
-      const open = nav.classList.toggle('open');
+      var nav  = document.getElementById('mobileNav');
+      var open = nav.classList.toggle('open');
       this.classList.toggle('open', open);
       this.setAttribute('aria-expanded', String(open));
     });
-    // Back to top
-    window.addEventListener('scroll', () => {
+    document.querySelectorAll('.mobile-nav a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        document.getElementById('mobileNav').classList.remove('open');
+        document.getElementById('hamburger').classList.remove('open');
+      });
+    });
+
+    // ── Back to top ──
+    window.addEventListener('scroll', function() {
       document.getElementById('btt').classList.toggle('vis', window.scrollY > 400);
     }, { passive: true });
-    // Hero QR mockup (static demo)
-    window.addEventListener('load', function() {
-      if (window.QRCode) {
-        const wrap = document.getElementById('heroQR');
-        wrap.innerHTML = '';
-        new QRCode(wrap, { text: 'https://qrcraft.app', width: 160, height: 160, colorDark: '#4f46e5', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
-      }
+
+    // ── Coming Soon modal ──
+    function showComingSoon(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      var overlay = document.getElementById('comingSoonOverlay');
+      overlay.style.display = 'flex';
+    }
+    function closeComingSoon() {
+      document.getElementById('comingSoonOverlay').style.display = 'none';
+    }
+    document.getElementById('comingSoonOverlay').addEventListener('click', function(ev) {
+      if (ev.target === this) closeComingSoon();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeComingSoon();
+    });
+
+    // ── Hero QR ── QRCode.js is already loaded above, so generate immediately on DOMContentLoaded
+    document.addEventListener('DOMContentLoaded', function() {
+      var wrap = document.getElementById('heroQR');
+      if (!wrap || !window.QRCode) return;
+      wrap.innerHTML = '';
+      new QRCode(wrap, {
+        text:         'https://qrcraft.app',
+        width:        180,
+        height:       180,
+        colorDark:    '#4f46e5',
+        colorLight:   '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      // Ensure the canvas scales to fill its container on all screen sizes
+      setTimeout(function() {
+        var el = wrap.querySelector('canvas') || wrap.querySelector('img');
+        if (el) {
+          el.style.width   = '100%';
+          el.style.height  = 'auto';
+          el.style.display = 'block';
+          el.style.borderRadius = '8px';
+        }
+      }, 50);
     });
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </body>
 </html>

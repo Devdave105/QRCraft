@@ -54,9 +54,9 @@
     </div>
   </div>
 
-  <!-- AD SLOT (top) -->
-  <div class="container" style="padding-top:24px">
-    <div class="ad-slot" style="min-height:70px">Advertisement — Google AdSense (728x90)</div>
+  <!-- Ad Slot: paste your Google AdSense script tag here -->
+  <div class="container" style="padding-top:24px;display:none">
+    <div class="ad-slot" style="min-height:70px"></div>
   </div>
 
   <!-- GENERATOR -->
@@ -380,10 +380,10 @@
         <div>
           <div class="footer-col-title">Learn</div>
           <div class="footer-links">
-            <a href="#how-it-works">How to generate a business QR code</a>
-            <a href="#how-it-works">Tips for sharing QR codes online</a>
-            <a href="#features">How to customize QR colors</a>
-            <a href="#features">Best practices for QR code design</a>
+            <a href="#" onclick="showComingSoon(event)">How to generate a business QR code</a>
+            <a href="#" onclick="showComingSoon(event)">Tips for sharing QR codes online</a>
+            <a href="#" onclick="showComingSoon(event)">How to customize QR colors</a>
+            <a href="#" onclick="showComingSoon(event)">Best practices for QR code design</a>
           </div>
         </div>
         <div>
@@ -398,19 +398,20 @@
         <div>
           <div class="footer-col-title">Support</div>
           <div class="footer-links">
-            <a href="mailto:support@qrcraft.app">Contact Support</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+            <a href="#" onclick="showComingSoon(event)">Contact Support</a>
+            <a href="#" onclick="showComingSoon(event)">Privacy Policy</a>
+            <a href="#" onclick="showComingSoon(event)">Terms of Service</a>
             <a href="index.html">Back to Home</a>
           </div>
         </div>
       </div>
-      <div class="ad-slot">Advertisement — Google AdSense placement (728x90 or responsive)</div>
+      <!-- Ad Slot: paste your Google AdSense script tag here -->
+      <div class="ad-slot" style="display:none"></div>
       <div class="footer-bottom">
         <span>&copy; 2026 QRCraft. All rights reserved.</span>
         <div class="footer-bottom-links">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
+          <a href="#" onclick="showComingSoon(event)">Privacy</a>
+          <a href="#" onclick="showComingSoon(event)">Terms</a>
           <a href="index.html">Home</a>
         </div>
       </div>
@@ -422,6 +423,27 @@
 
   <!-- TOAST -->
   <div class="toast-region" id="toastRegion"></div>
+
+  <!-- COMING SOON MODAL -->
+  <div id="comingSoonOverlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px">
+    <div style="background:var(--bg2);border:1.5px solid var(--bdr);border-radius:20px;padding:40px 36px;max-width:380px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.5);animation:csIn .25s ease">
+      <div style="width:56px;height:56px;border-radius:14px;background:var(--brand-light);border:1.5px solid var(--brand-border);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:.75rem;font-weight:800;color:var(--brand);letter-spacing:.04em">SOON</div>
+      <h3 style="font-size:1.3rem;font-weight:800;letter-spacing:-.03em;margin-bottom:10px">Coming Soon</h3>
+      <p style="color:var(--tx2);font-size:.9rem;line-height:1.65;margin-bottom:24px">This page is currently under development and will be available shortly. Thank you for your patience.</p>
+      <button onclick="closeComingSoon()" style="width:100%;padding:12px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;font-size:.92rem;font-weight:600;border:none;cursor:pointer;font-family:inherit">Close</button>
+    </div>
+  </div>
+  <style>@keyframes csIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}</style>
+  <script>
+    function showComingSoon(e){
+      if(e){e.preventDefault();e.stopPropagation();}
+      var o=document.getElementById('comingSoonOverlay');
+      o.style.display='flex';
+    }
+    function closeComingSoon(){document.getElementById('comingSoonOverlay').style.display='none';}
+    document.getElementById('comingSoonOverlay').addEventListener('click',function(ev){if(ev.target===this)closeComingSoon();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeComingSoon();});
+  </script>
 
 </body>
 </html>
