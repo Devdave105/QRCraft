@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="QRCraft — Create QR codes instantly for URLs, WhatsApp, Phone, Email, WiFi and more. Free, fast, no sign-up required." />
+  <meta name="keywords" content="QR code generator, free QR code, WhatsApp QR, WiFi QR code, business QR code" />
+  <meta name="robots" content="index, follow" />
+  <title>QRCraft — Create Your QR Code Instantly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">QRCraft</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="qrcode.html">Generator</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="btn-theme" id="themeToggle">Light Mode</button>
+      <a href="qrcode.html" class="btn btn-brand nav-cta">Start for Free</a>
+      <button class="hamburger" id="hamburger" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#home">Home</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#reviews">Reviews</a>
+    <a href="qrcode.html">Generator</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-wrap">
+        <div class="hero-content">
+          <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            Free to use. No account required.
+          </div>
+          <h1 class="hero-title">
+            Create Your QR Code<br />
+            <span class="hero-grad">Instantly.</span>
+          </h1>
+          <p class="hero-sub">
+            Generate professional QR codes for your business, website, WhatsApp,
+            email, phone number or WiFi credentials. Download in seconds.
+            Share anywhere.
+          </p>
+          <div class="hero-btns">
+            <a href="qrcode.html" class="btn btn-brand btn-lg">Start — It's Free</a>
+            <a href="#how-it-works" class="btn btn-ghost btn-lg">See How It Works</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hstat">
+              <span class="hstat-num">6+</span>
+              <span class="hstat-lbl">QR Types</span>
+            </div>
+            <div class="hstat">
+              <span class="hstat-num">PNG</span>
+              <span class="hstat-lbl">Download Format</span>
+            </div>
+            <div class="hstat">
+              <span class="hstat-num">Free</span>
+              <span class="hstat-lbl">No Sign-up</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-qr-mockup">
+            <div id="heroQR" style="width:160px;height:160px;margin:0 auto 14px;background:var(--surf);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--tx3);font-weight:600">
+              QR Preview
+            </div>
+            <div class="hero-qr-caption">Scan to visit QRCraft</div>
+            <div class="hero-qr-url">qrcraft.app</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="section" style="background:var(--bg2)">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-tag">How It Works</span>
+        <h2 class="sec-title">Three Simple Steps</h2>
+        <p class="sec-sub">No technical knowledge required. Generate your QR code in under 30 seconds.</p>
+      </div>
+      <div class="hiw-grid">
+        <div class="hiw-card">
+          <div class="hiw-num">1</div>
+          <div class="hiw-title">Click Start</div>
+          <p class="hiw-desc">Click the Start button to open the QR Code Generator. Select the type of QR code you need — URL, WhatsApp, phone, email, text or WiFi.</p>
+          <div class="hiw-connector"></div>
+        </div>
+        <div class="hiw-card">
+          <div class="hiw-num">2</div>
+          <div class="hiw-title">Enter Your Data</div>
+          <p class="hiw-desc">Fill in the relevant fields for your chosen QR type. The form validates your input in real time, so you always get a working QR code.</p>
+          <div class="hiw-connector"></div>
+        </div>
+        <div class="hiw-card">
+          <div class="hiw-num">3</div>
+          <div class="hiw-title">Generate and Download</div>
+          <p class="hiw-desc">Click Generate QR Code to see your QR instantly. Customize the color and size, then download as PNG or copy the data to your clipboard.</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:40px">
+        <a href="qrcode.html" class="btn btn-brand btn-lg">Start Generating</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-tag">Features</span>
+        <h2 class="sec-title">Everything You Need</h2>
+        <p class="sec-sub">Built for individuals, freelancers and businesses who need professional QR codes fast.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">URL</div>
+          <div class="feature-title">Website QR Codes</div>
+          <p class="feature-desc">Link any URL to a scannable QR code. Perfect for marketing materials, business cards and menus.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">WA</div>
+          <div class="feature-title">WhatsApp Direct</div>
+          <p class="feature-desc">Let customers message you on WhatsApp with one scan. Pre-fill an optional message to guide them.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">WiFi</div>
+          <div class="feature-title">WiFi Credentials</div>
+          <p class="feature-desc">Guests scan once to join your network — no typing passwords. Supports WPA2, WPA and open networks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">TEL</div>
+          <div class="feature-title">Phone Number</div>
+          <p class="feature-desc">Encode your phone number so customers can call or save your contact with a single scan.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">IMG</div>
+          <div class="feature-title">Download as PNG</div>
+          <p class="feature-desc">Download your QR code as a high-quality PNG file, ready for print or digital use at any size.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">CLR</div>
+          <div class="feature-title">Color Customization</div>
+          <p class="feature-desc">Match your QR code to your brand colors. Change foreground and background independently.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT REVIEWS -->
+  <section id="reviews" class="section" style="background:var(--bg2)">
+    <div class="container">
+      <div class="sec-head">
+        <span class="sec-tag">Client Reviews</span>
+        <h2 class="sec-title">What Our Users Say</h2>
+        <p class="sec-sub">Real feedback from real people who use QRCraft for their businesses every day.</p>
+      </div>
+      <div class="reviews-grid">
+
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img
+              src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
+              alt="Sarah Johnson"
+              class="review-avatar"
+              loading="lazy"
+            />
+            <div>
+              <div class="review-name">Sarah Johnson</div>
+              <div class="review-date">March 2026</div>
+            </div>
+          </div>
+          <div class="review-stars">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+          </div>
+          <p class="review-text">
+            This QR code generator is fast, reliable and incredibly easy to use.
+            I created my business QR code in seconds and had it on my flyers the same day.
+            Exactly what I needed without any unnecessary complexity.
+          </p>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+              alt="Michael Adeyemi"
+              class="review-avatar"
+              loading="lazy"
+            />
+            <div>
+              <div class="review-name">Michael Adeyemi</div>
+              <div class="review-date">February 2026</div>
+            </div>
+          </div>
+          <div class="review-stars">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star" style="color:var(--tx3)">&#9733;</span>
+          </div>
+          <p class="review-text">
+            The interface is clean and intuitive — I had no trouble at all.
+            I love that I can customize the QR colors to match my brand and download
+            it instantly as a PNG. Great product for freelancers and small businesses.
+          </p>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="review-header">
+            <img
+              src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&h=100&fit=crop&crop=face"
+              alt="Aisha Bello"
+              class="review-avatar"
+              loading="lazy"
+            />
+            <div>
+              <div class="review-name">Aisha Bello</div>
+              <div class="review-date">March 2026</div>
+            </div>
+          </div>
+          <div class="review-stars">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+          </div>
+          <p class="review-text">
+            Fantastic tool. I shared my WhatsApp QR on social media and clients
+            can now contact me directly with one scan. It has genuinely improved
+            how I reach new customers. I recommend it to every business owner I know.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="section">
+    <div class="container">
+      <div style="background:linear-gradient(135deg,var(--brand),var(--brand-dark));border-radius:20px;padding:56px 48px;text-align:center;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none"></div>
+        <h2 style="font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;color:#fff;margin-bottom:12px;position:relative">Ready to Create Your QR Code?</h2>
+        <p style="color:rgba(255,255,255,.75);font-size:1rem;margin-bottom:30px;max-width:480px;margin-left:auto;margin-right:auto;position:relative">No sign-up. No cost. Generate professional QR codes in seconds.</p>
+        <a href="qrcode.html" class="btn btn-lg" style="background:#fff;color:var(--brand);font-weight:700;position:relative">Start Generating</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="nav-logo" style="-webkit-text-fill-color:unset;background:none;color:var(--tx);font-size:1.2rem;font-weight:800">QRCraft</div>
+          <p class="footer-brand-desc">Free professional QR code generator for businesses, individuals and developers. No account required.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Learn</div>
+          <div class="footer-links">
+            <a href="qrcode.html#how-it-works">How to generate a business QR code</a>
+            <a href="qrcode.html#how-it-works">Tips for sharing QR codes online</a>
+            <a href="qrcode.html#features">How to customize QR colors</a>
+            <a href="qrcode.html#features">Best practices for QR code design</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Product</div>
+          <div class="footer-links">
+            <a href="qrcode.html">QR Code Generator</a>
+            <a href="#features">Features</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#how-it-works">How It Works</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer-col-title">Support</div>
+          <div class="footer-links">
+            <a href="mailto:support@qrcraft.app">Contact Support</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Sitemap</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ad Slot -->
+      <div class="ad-slot">
+        Advertisement — Google AdSense placement (728x90 or responsive)
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 QRCraft. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&#8593;</button>
+
+  <!-- TOAST -->
+  <div class="toast-region" id="toastRegion"></div>
+
+  <script>
+    // Theme
+    const saved = localStorage.getItem('qrc_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+    document.getElementById('themeToggle').textContent = saved === 'dark' ? 'Light Mode' : 'Dark Mode';
+    document.getElementById('themeToggle').addEventListener('click', function() {
+      const cur = document.documentElement.getAttribute('data-theme');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('qrc_theme', next);
+      this.textContent = next === 'dark' ? 'Light Mode' : 'Dark Mode';
+    });
+    // Hamburger
+    document.getElementById('hamburger').addEventListener('click', function() {
+      const nav = document.getElementById('mobileNav');
+      const open = nav.classList.toggle('open');
+      this.classList.toggle('open', open);
+      this.setAttribute('aria-expanded', String(open));
+    });
+    // Back to top
+    window.addEventListener('scroll', () => {
+      document.getElementById('btt').classList.toggle('vis', window.scrollY > 400);
+    }, { passive: true });
+    // Hero QR mockup (static demo)
+    window.addEventListener('load', function() {
+      if (window.QRCode) {
+        const wrap = document.getElementById('heroQR');
+        wrap.innerHTML = '';
+        new QRCode(wrap, { text: 'https://qrcraft.app', width: 160, height: 160, colorDark: '#4f46e5', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+      }
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</body>
+</html>
