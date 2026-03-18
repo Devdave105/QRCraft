@@ -11,6 +11,104 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── HERO SLIDESHOW ── */
+    .hero-slide-outer { position: relative; width: 100%; min-height: 320px; }
+    .hero-slide {
+      position: absolute; inset: 0;
+      display: flex; justify-content: center;
+      opacity: 0; transform: translateY(18px) scale(.97);
+      transition: opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+    }
+    .hero-slide.active {
+      opacity: 1; transform: none;
+      position: relative; pointer-events: all;
+    }
+    .hero-slide.exit { opacity: 0; transform: translateY(-14px) scale(.97); }
+    .slide-type-label {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--brand); background: var(--brand-light);
+      border: 1px solid var(--brand-border); border-radius: 100px;
+      padding: 4px 12px; margin-bottom: 12px;
+    }
+    .slide-dots { display: flex; justify-content: center; gap: 7px; margin-top: 18px; }
+    .slide-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--bdr2); border: none; cursor: pointer;
+      transition: background .25s, transform .25s;
+    }
+    .slide-dot.active { background: var(--brand); transform: scale(1.4); }
+
+    /* ── HOW IT WORKS ANIMATION ── */
+    .hiw-card {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .55s cubic-bezier(.4,0,.2,1), transform .55s cubic-bezier(.4,0,.2,1);
+    }
+    .hiw-card.vis { opacity: 1; transform: none; }
+    .hiw-card:nth-child(1) { transition-delay: 0s; }
+    .hiw-card:nth-child(2) { transition-delay: .13s; }
+    .hiw-card:nth-child(3) { transition-delay: .26s; }
+    .hiw-card:hover .hiw-num { transform: scale(1.13); box-shadow: 0 0 0 7px var(--brand-glow); }
+    .hiw-num { transition: transform .2s, box-shadow .2s; }
+    .hiw-connector { width: 0; transition: width .55s .5s cubic-bezier(.4,0,.2,1); }
+    .hiw-card.vis .hiw-connector { width: 24px; }
+
+    /* ── FEATURES ANIMATION + LOAD MORE ── */
+    .feature-card {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1), border-color .2s;
+    }
+    .feature-card.vis  { opacity: 1; transform: none; }
+    .feature-card.more { display: none; }
+    .feature-card:nth-child(1){transition-delay:0s}
+    .feature-card:nth-child(2){transition-delay:.07s}
+    .feature-card:nth-child(3){transition-delay:.14s}
+    .feature-card:nth-child(4){transition-delay:0s}
+    .feature-card:nth-child(5){transition-delay:.07s}
+    .feature-card:nth-child(6){transition-delay:.14s}
+
+    .features-foot { text-align: center; margin-top: 36px; }
+    .btn-more {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 26px; border-radius: 9px;
+      background: var(--surf); border: 1.5px solid var(--bdr);
+      color: var(--tx); font-size: .9rem; font-weight: 600;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: background .18s, border-color .18s, color .18s;
+    }
+    .btn-more:hover { background: var(--surf2); border-color: var(--brand-border); color: var(--brand); }
+    .btn-more .arr { display: inline-block; transition: transform .25s; }
+    .btn-more.open .arr { transform: rotate(180deg); }
+
+    /* ── REVIEW ANIMATION + CTA ── */
+    .review-card {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .5s cubic-bezier(.4,0,.2,1), transform .5s cubic-bezier(.4,0,.2,1), border-color .2s;
+    }
+    .review-card.vis { opacity: 1; transform: none; }
+    .review-card:nth-child(1){transition-delay:0s}
+    .review-card:nth-child(2){transition-delay:.12s}
+    .review-card:nth-child(3){transition-delay:.24s}
+    .review-cta {
+      margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--bdr);
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    .review-cta-note { font-size: .76rem; color: var(--tx3); font-style: italic; }
+    .review-cta-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 7px 15px; border-radius: 7px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+      color: #fff; font-size: .78rem; font-weight: 600; white-space: nowrap;
+      transition: filter .15s, transform .15s;
+    }
+    .review-cta-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+    /* ── STAT COUNT-UP ── */
+    @keyframes statPop { 0%{transform:scale(1)} 45%{transform:scale(1.15)} 100%{transform:scale(1)} }
+    .hstat-num.pop { animation: statPop .38s cubic-bezier(.4,0,.2,1); }
+  </style>
 </head>
 <body>
 
@@ -22,12 +120,12 @@
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#reviews">Reviews</a></li>
-        <li><a href="Qrcode.html">Generator</a></li>
+        <li><a href="qrcode.html">Generator</a></li>
       </ul>
     </nav>
     <div class="nav-actions">
       <button class="btn-theme" id="themeToggle">Light Mode</button>
-      <a href="Qrcode.html" class="btn btn-brand nav-cta">Start for Free</a>
+      <a href="qrcode.html" class="btn btn-brand nav-cta">Start for Free</a>
       <button class="hamburger" id="hamburger" aria-label="Open navigation" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -38,7 +136,7 @@
     <a href="#home">Home</a>
     <a href="#how-it-works">How It Works</a>
     <a href="#reviews">Reviews</a>
-    <a href="Qrcode.html">Generator</a>
+    <a href="qrcode.html">Generator</a>
   </div>
 
   <!-- HERO -->
@@ -46,6 +144,8 @@
     <div class="hero-grid"></div>
     <div class="container">
       <div class="hero-wrap">
+
+        <!-- Left: copy -->
         <div class="hero-content">
           <div class="hero-pill">
             <span class="hero-pill-dot"></span>
@@ -57,36 +157,86 @@
           </h1>
           <p class="hero-sub">
             Generate professional QR codes for your business, website, WhatsApp,
-            email, phone number or WiFi credentials. Download in seconds.
-            Share anywhere.
+            email, phone number or WiFi credentials. Download in seconds. Share anywhere.
           </p>
           <div class="hero-btns">
-            <a href="Qrcode.html" class="btn btn-brand btn-lg">Start — It's Free</a>
+            <a href="qrcode.html" class="btn btn-brand btn-lg">Start — It's Free</a>
             <a href="#how-it-works" class="btn btn-ghost btn-lg">See How It Works</a>
           </div>
-          <div class="hero-stats">
+          <div class="hero-stats" id="heroStats">
             <div class="hstat">
-              <span class="hstat-num">6+</span>
+              <span class="hstat-num" id="stat1" data-to="6" data-suffix="+">0+</span>
               <span class="hstat-lbl">QR Types</span>
             </div>
             <div class="hstat">
-              <span class="hstat-num">PNG</span>
+              <span class="hstat-num" id="stat2" data-text="PNG">PNG</span>
               <span class="hstat-lbl">Download Format</span>
             </div>
             <div class="hstat">
-              <span class="hstat-num">Free</span>
+              <span class="hstat-num" id="stat3" data-text="Free">Free</span>
               <span class="hstat-lbl">No Sign-up</span>
             </div>
           </div>
         </div>
 
+        <!-- Right: animated QR slideshow -->
         <div class="hero-visual">
-          <div class="hero-qr-mockup">
-            <div id="heroQR" style="width:180px;height:180px;margin:0 auto 16px;border-radius:10px;overflow:hidden;background:var(--surf)"></div>
-            <div class="hero-qr-caption">Scan to visit QRCraft</div>
-            <div class="hero-qr-url">qrcraft.app</div>
+          <div style="width:100%;max-width:300px">
+
+            <div class="hero-slide-outer" id="slideOuter">
+
+              <!-- Slide 0: URL -->
+              <div class="hero-slide active" data-idx="0">
+                <div class="hero-qr-mockup" style="width:100%">
+                  <div class="slide-type-label">Website URL</div>
+                  <div id="qr0" style="width:180px;height:180px;margin:0 auto;overflow:hidden;border-radius:8px;background:var(--surf)"></div>
+                  <div class="hero-qr-caption" style="margin-top:14px">Your website, one scan away</div>
+                  <div class="hero-qr-url">https://yoursite.com</div>
+                </div>
+              </div>
+
+              <!-- Slide 1: WhatsApp -->
+              <div class="hero-slide" data-idx="1">
+                <div class="hero-qr-mockup" style="width:100%">
+                  <div class="slide-type-label" style="background:rgba(37,211,102,.12);color:#25d366;border-color:rgba(37,211,102,.3)">WhatsApp Direct</div>
+                  <div id="qr1" style="width:180px;height:180px;margin:0 auto;overflow:hidden;border-radius:8px;background:var(--surf)"></div>
+                  <div class="hero-qr-caption" style="margin-top:14px">Customers message you instantly</div>
+                  <div class="hero-qr-url" style="background:rgba(37,211,102,.1);color:#25d366;border:1px solid rgba(37,211,102,.25)">wa.me/your-number</div>
+                </div>
+              </div>
+
+              <!-- Slide 2: WiFi -->
+              <div class="hero-slide" data-idx="2">
+                <div class="hero-qr-mockup" style="width:100%">
+                  <div class="slide-type-label" style="background:rgba(6,182,212,.1);color:var(--accent);border-color:rgba(6,182,212,.25)">WiFi Credentials</div>
+                  <div id="qr2" style="width:180px;height:180px;margin:0 auto;overflow:hidden;border-radius:8px;background:var(--surf)"></div>
+                  <div class="hero-qr-caption" style="margin-top:14px">Guests join your network in one scan</div>
+                  <div class="hero-qr-url" style="background:rgba(6,182,212,.1);color:var(--accent);border:1px solid rgba(6,182,212,.22)">WIFI:T:WPA2;S:YourNet;;</div>
+                </div>
+              </div>
+
+              <!-- Slide 3: Email -->
+              <div class="hero-slide" data-idx="3">
+                <div class="hero-qr-mockup" style="width:100%">
+                  <div class="slide-type-label" style="background:rgba(249,115,22,.1);color:#f97316;border-color:rgba(249,115,22,.25)">Email Address</div>
+                  <div id="qr3" style="width:180px;height:180px;margin:0 auto;overflow:hidden;border-radius:8px;background:var(--surf)"></div>
+                  <div class="hero-qr-caption" style="margin-top:14px">Open a new email with one scan</div>
+                  <div class="hero-qr-url" style="background:rgba(249,115,22,.1);color:#f97316;border:1px solid rgba(249,115,22,.22)">mailto:hello@yourbiz.com</div>
+                </div>
+              </div>
+
+            </div><!-- end slide-outer -->
+
+            <!-- Dot indicators -->
+            <div class="slide-dots" id="slideDots">
+              <button class="slide-dot active" data-n="0" aria-label="Slide 1"></button>
+              <button class="slide-dot" data-n="1" aria-label="Slide 2"></button>
+              <button class="slide-dot" data-n="2" aria-label="Slide 3"></button>
+              <button class="slide-dot" data-n="3" aria-label="Slide 4"></button>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -99,7 +249,7 @@
         <h2 class="sec-title">Three Simple Steps</h2>
         <p class="sec-sub">No technical knowledge required. Generate your QR code in under 30 seconds.</p>
       </div>
-      <div class="hiw-grid">
+      <div class="hiw-grid" id="hiwGrid">
         <div class="hiw-card">
           <div class="hiw-num">1</div>
           <div class="hiw-title">Click Start</div>
@@ -132,7 +282,7 @@
         <h2 class="sec-title">Everything You Need</h2>
         <p class="sec-sub">Built for individuals, freelancers and businesses who need professional QR codes fast.</p>
       </div>
-      <div class="features-grid">
+      <div class="features-grid" id="featGrid">
         <div class="feature-card">
           <div class="feature-icon">URL</div>
           <div class="feature-title">Website QR Codes</div>
@@ -148,21 +298,27 @@
           <div class="feature-title">WiFi Credentials</div>
           <p class="feature-desc">Guests scan once to join your network — no typing passwords. Supports WPA2, WPA and open networks.</p>
         </div>
-        <div class="feature-card">
+        <!-- hidden extras -->
+        <div class="feature-card more">
           <div class="feature-icon">TEL</div>
           <div class="feature-title">Phone Number</div>
           <p class="feature-desc">Encode your phone number so customers can call or save your contact with a single scan.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">IMG</div>
+        <div class="feature-card more">
+          <div class="feature-icon">PNG</div>
           <div class="feature-title">Download as PNG</div>
           <p class="feature-desc">Download your QR code as a high-quality PNG file, ready for print or digital use at any size.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card more">
           <div class="feature-icon">CLR</div>
           <div class="feature-title">Color Customization</div>
           <p class="feature-desc">Match your QR code to your brand colors. Change foreground and background independently.</p>
         </div>
+      </div>
+      <div class="features-foot">
+        <button class="btn-more" id="btnMore" onclick="toggleMore()">
+          Show More Features <span class="arr">&#8595;</span>
+        </button>
       </div>
     </div>
   </section>
@@ -177,88 +333,70 @@
       </div>
       <div class="reviews-grid">
 
-        <!-- Review 1 -->
         <div class="review-card">
           <div class="review-header">
-            <img
-              src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
-              alt="Sarah Johnson"
-              class="review-avatar"
-              loading="lazy"
-            />
+            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Sarah Johnson" class="review-avatar" loading="lazy" />
             <div>
               <div class="review-name">Sarah Johnson</div>
               <div class="review-date">March 2026</div>
             </div>
           </div>
           <div class="review-stars">
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
           </div>
           <p class="review-text">
-            This QR code generator is fast, reliable and incredibly easy to use.
+            This QR code generator is fast, reliable and easy to use.
             I created my business QR code in seconds and had it on my flyers the same day.
             Exactly what I needed without any unnecessary complexity.
           </p>
+          <div class="review-cta">
+            <span class="review-cta-note">Sarah created a URL QR code</span>
+            <a href="qrcode.html" class="review-cta-btn">Try It Now</a>
+          </div>
         </div>
 
-        <!-- Review 2 -->
         <div class="review-card">
           <div class="review-header">
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
-              alt="Michael Adeyemi"
-              class="review-avatar"
-              loading="lazy"
-            />
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Michael Adeyemi" class="review-avatar" loading="lazy" />
             <div>
               <div class="review-name">Michael Adeyemi</div>
               <div class="review-date">February 2026</div>
             </div>
           </div>
           <div class="review-stars">
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star" style="color:var(--tx3)">&#9733;</span>
+            <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star" style="color:var(--tx3)">&#9733;</span>
           </div>
           <p class="review-text">
             The interface is clean and intuitive — I had no trouble at all.
             I love that I can customize the QR colors to match my brand and download
             it instantly as a PNG. Great product for freelancers and small businesses.
           </p>
+          <div class="review-cta">
+            <span class="review-cta-note">Michael used custom color QR</span>
+            <a href="qrcode.html" class="review-cta-btn">Try It Now</a>
+          </div>
         </div>
 
-        <!-- Review 3 -->
         <div class="review-card">
           <div class="review-header">
-            <img
-              src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&h=100&fit=crop&crop=face"
-              alt="Aisha Bello"
-              class="review-avatar"
-              loading="lazy"
-            />
+            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&h=100&fit=crop&crop=face" alt="Aisha Bello" class="review-avatar" loading="lazy" />
             <div>
               <div class="review-name">Aisha Bello</div>
               <div class="review-date">March 2026</div>
             </div>
           </div>
           <div class="review-stars">
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
           </div>
           <p class="review-text">
             Fantastic tool. I shared my WhatsApp QR on social media and clients
             can now contact me directly with one scan. It has genuinely improved
             how I reach new customers. I recommend it to every business owner I know.
           </p>
+          <div class="review-cta">
+            <span class="review-cta-note">Aisha created a WhatsApp QR</span>
+            <a href="qrcode.html" class="review-cta-btn">Try It Now</a>
+          </div>
         </div>
 
       </div>
@@ -313,10 +451,7 @@
           </div>
         </div>
       </div>
-
-      <!-- Ad Slot: paste your Google AdSense script tag here -->
       <div class="ad-slot" style="display:none"></div>
-
       <div class="footer-bottom">
         <span>&copy; 2026 QRCraft. All rights reserved.</span>
         <div class="footer-bottom-links">
@@ -328,7 +463,6 @@
     </div>
   </footer>
 
-
   <!-- COMING SOON MODAL -->
   <div id="comingSoonOverlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.65);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px">
     <div style="background:var(--bg2);border:1.5px solid var(--bdr);border-radius:20px;padding:40px 36px;max-width:380px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.5);animation:csIn .25s ease">
@@ -338,92 +472,162 @@
       <button onclick="closeComingSoon()" style="width:100%;padding:12px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--brand-dark));color:#fff;font-size:.92rem;font-weight:600;border:none;cursor:pointer;font-family:inherit">Close</button>
     </div>
   </div>
-  <style>
-    @keyframes csIn { from{opacity:0;transform:scale(.94)} to{opacity:1;transform:none} }
-  </style>
+  <style>@keyframes csIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}</style>
 
-  <!-- BACK TO TOP -->
   <button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&#8593;</button>
-
-  <!-- TOAST -->
   <div class="toast-region" id="toastRegion"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
-    // ── Theme ──
-    (function() {
-      var t = localStorage.getItem('qrc_theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', t);
-      var btn = document.getElementById('themeToggle');
-      if (btn) btn.textContent = t === 'dark' ? 'Light Mode' : 'Dark Mode';
-    })();
-    document.getElementById('themeToggle').addEventListener('click', function() {
-      var cur  = document.documentElement.getAttribute('data-theme');
-      var next = cur === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('qrc_theme', next);
-      this.textContent = next === 'dark' ? 'Light Mode' : 'Dark Mode';
-    });
+  /* ── THEME ── */
+  (function(){
+    var t = localStorage.getItem('qrc_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    document.getElementById('themeToggle').textContent = t === 'dark' ? 'Light Mode' : 'Dark Mode';
+  })();
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    var cur = document.documentElement.getAttribute('data-theme');
+    var nxt = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', nxt);
+    localStorage.setItem('qrc_theme', nxt);
+    this.textContent = nxt === 'dark' ? 'Light Mode' : 'Dark Mode';
+  });
 
-    // ── Hamburger ──
-    document.getElementById('hamburger').addEventListener('click', function() {
-      var nav  = document.getElementById('mobileNav');
-      var open = nav.classList.toggle('open');
-      this.classList.toggle('open', open);
-      this.setAttribute('aria-expanded', String(open));
+  /* ── HAMBURGER ── */
+  document.getElementById('hamburger').addEventListener('click', function(){
+    var nav = document.getElementById('mobileNav');
+    var o   = nav.classList.toggle('open');
+    this.classList.toggle('open', o);
+    this.setAttribute('aria-expanded', String(o));
+  });
+  document.querySelectorAll('.mobile-nav a').forEach(function(a){
+    a.addEventListener('click', function(){
+      document.getElementById('mobileNav').classList.remove('open');
+      document.getElementById('hamburger').classList.remove('open');
     });
-    document.querySelectorAll('.mobile-nav a').forEach(function(a) {
-      a.addEventListener('click', function() {
-        document.getElementById('mobileNav').classList.remove('open');
-        document.getElementById('hamburger').classList.remove('open');
-      });
+  });
+
+  /* ── BACK TO TOP ── */
+  window.addEventListener('scroll', function(){
+    document.getElementById('btt').classList.toggle('vis', window.scrollY > 400);
+  }, { passive: true });
+
+  /* ── COMING SOON ── */
+  function showComingSoon(e){ if(e){e.preventDefault();e.stopPropagation();} document.getElementById('comingSoonOverlay').style.display='flex'; }
+  function closeComingSoon(){ document.getElementById('comingSoonOverlay').style.display='none'; }
+  document.getElementById('comingSoonOverlay').addEventListener('click',function(ev){ if(ev.target===this) closeComingSoon(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeComingSoon(); });
+
+  /* ── HERO QR SLIDESHOW ── */
+  var SLIDES = [
+    { id:'qr0', text:'https://qrcraft.app',             fg:'#4f46e5' },
+    { id:'qr1', text:'https://wa.me/2348012345678',      fg:'#25d366' },
+    { id:'qr2', text:'WIFI:T:WPA2;S:QRCraft_Guest;;',    fg:'#06b6d4' },
+    { id:'qr3', text:'mailto:hello@qrcraft.app',         fg:'#f97316' },
+  ];
+  var cur = 0, timer = null, built = false;
+
+  function buildQRs(){
+    if(built || !window.QRCode) return;
+    built = true;
+    SLIDES.forEach(function(s){
+      var w = document.getElementById(s.id);
+      if(!w) return;
+      w.innerHTML = '';
+      try {
+        new QRCode(w, { text:s.text, width:180, height:180, colorDark:s.fg, colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M });
+        setTimeout(function(){
+          var el = w.querySelector('canvas') || w.querySelector('img');
+          if(el){ el.style.width='100%'; el.style.height='auto'; el.style.display='block'; }
+        }, 60);
+      } catch(e){}
     });
+  }
 
-    // ── Back to top ──
-    window.addEventListener('scroll', function() {
-      document.getElementById('btt').classList.toggle('vis', window.scrollY > 400);
-    }, { passive: true });
+  function goSlide(n){
+    var slides = document.querySelectorAll('.hero-slide');
+    var dots   = document.querySelectorAll('.slide-dot');
+    var prev   = cur;
+    cur = (n + slides.length) % slides.length;
+    slides[prev].classList.remove('active');
+    slides[prev].classList.add('exit');
+    setTimeout(function(){ slides[prev].classList.remove('exit'); }, 700);
+    slides[cur].classList.add('active');
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === cur); });
+  }
 
-    // ── Coming Soon modal ──
-    function showComingSoon(e) {
-      if (e) { e.preventDefault(); e.stopPropagation(); }
-      var overlay = document.getElementById('comingSoonOverlay');
-      overlay.style.display = 'flex';
+  function startTimer(){ clearInterval(timer); timer = setInterval(function(){ goSlide(cur+1); }, 3600); }
+
+  document.getElementById('slideDots').addEventListener('click', function(e){
+    var d = e.target.closest('.slide-dot');
+    if(!d) return;
+    goSlide(parseInt(d.dataset.n));
+    startTimer();
+  });
+
+  /* ── STAT COUNT-UP ── */
+  function countUp(el){
+    var to  = parseInt(el.dataset.to);
+    var sfx = el.dataset.suffix || '';
+    if(!to){ el.classList.add('pop'); setTimeout(function(){ el.classList.remove('pop'); },400); return; }
+    var dur = 900, t0 = null;
+    el.style.color = 'var(--accent)';
+    (function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min((ts-t0)/dur, 1);
+      var e = 1-Math.pow(1-p, 3);
+      el.textContent = Math.round(e*to)+sfx;
+      if(p<1){ requestAnimationFrame(step); }
+      else { el.style.color=''; el.classList.add('pop'); setTimeout(function(){ el.classList.remove('pop'); },400); }
+    })(performance.now());
+  }
+
+  /* ── FEATURES LOAD MORE ── */
+  var moreOpen = false;
+  function toggleMore(){
+    var cards = document.querySelectorAll('.feature-card.more');
+    var btn   = document.getElementById('btnMore');
+    moreOpen  = !moreOpen;
+    if(moreOpen){
+      cards.forEach(function(c){ c.style.display=''; setTimeout(function(){ c.classList.add('vis'); },20); });
+      btn.innerHTML = 'Show Less Features <span class="arr">&#8595;</span>';
+      btn.classList.add('open');
+    } else {
+      cards.forEach(function(c){ c.classList.remove('vis'); setTimeout(function(){ c.style.display='none'; },460); });
+      btn.innerHTML = 'Show More Features <span class="arr">&#8595;</span>';
+      btn.classList.remove('open');
     }
-    function closeComingSoon() {
-      document.getElementById('comingSoonOverlay').style.display = 'none';
-    }
-    document.getElementById('comingSoonOverlay').addEventListener('click', function(ev) {
-      if (ev.target === this) closeComingSoon();
-    });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeComingSoon();
-    });
+  }
 
-    // ── Hero QR ── QRCode.js is already loaded above, so generate immediately on DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', function() {
-      var wrap = document.getElementById('heroQR');
-      if (!wrap || !window.QRCode) return;
-      wrap.innerHTML = '';
-      new QRCode(wrap, {
-        text:         'https://qrcraft.app',
-        width:        180,
-        height:       180,
-        colorDark:    '#4f46e5',
-        colorLight:   '#ffffff',
-        correctLevel: QRCode.CorrectLevel.M
+  /* ── INTERSECTION OBSERVER (scroll-in animations) ── */
+  function watch(sel, cls, opts){
+    var ob = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting) en.target.classList.add(cls); });
+    }, opts || { threshold: 0.15 });
+    document.querySelectorAll(sel).forEach(function(el){ ob.observe(el); });
+    return ob;
+  }
+
+  /* ── BOOT ── */
+  document.addEventListener('DOMContentLoaded', function(){
+    buildQRs();
+    startTimer();
+
+    watch('.hiw-card', 'vis');
+    watch('.feature-card:not(.more)', 'vis');
+    watch('.review-card', 'vis');
+
+    // Stats count-up when stats row enters view
+    var statsOb = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        document.querySelectorAll('.hstat-num[data-to]').forEach(countUp);
+        statsOb.disconnect();
       });
-      // Ensure the canvas scales to fill its container on all screen sizes
-      setTimeout(function() {
-        var el = wrap.querySelector('canvas') || wrap.querySelector('img');
-        if (el) {
-          el.style.width   = '100%';
-          el.style.height  = 'auto';
-          el.style.display = 'block';
-          el.style.borderRadius = '8px';
-        }
-      }, 50);
-    });
+    }, { threshold: 0.5 });
+    var statsEl = document.getElementById('heroStats');
+    if(statsEl) statsOb.observe(statsEl);
+  });
   </script>
 </body>
 </html>
